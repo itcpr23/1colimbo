@@ -62,7 +62,7 @@ public class loginAcc extends javax.swing.JFrame {
         unlog = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        pwlog = new javax.swing.JPasswordField();
+        pass = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -212,6 +212,12 @@ public class loginAcc extends javax.swing.JFrame {
 
         jLabel2.setText("PASSWORD :");
 
+        pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passActionPerformed(evt);
+            }
+        });
+
         jButton1.setText("LOG IN");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,7 +248,7 @@ public class loginAcc extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pwlog, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .addComponent(pass, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                             .addComponent(unlog)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(134, 134, 134)
@@ -265,7 +271,7 @@ public class loginAcc extends javax.swing.JFrame {
                     .addComponent(unlog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pwlog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(13, 13, 13)
                 .addComponent(jButton1)
@@ -298,14 +304,14 @@ System.exit(0);        // TODO add your handling code here:
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 unamelog_in= unlog.getText();
-String password = new String(pwlog.getPassword());
+String password = new String(pass.getPassword());
 
 loginAccount logi = new loginAccount();
 int x = logi.loginAcc(unamelog_in, password);
 if(x==0){
      JOptionPane.showMessageDialog(rootPane,"Invalid Username and Password!","ERROR",JOptionPane.ERROR_MESSAGE);
-     pwlog.setText("");
-     pwlog.requestFocus();
+     pass.setText("");
+     pass.requestFocus();
 }else{
     main m = new main();
     m.setVisible(true);
@@ -371,6 +377,10 @@ register.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -427,7 +437,7 @@ register.setLocationRelativeTo(null);
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField lnreg;
-    private javax.swing.JPasswordField pwlog;
+    private javax.swing.JPasswordField pass;
     private javax.swing.JPasswordField pwreg;
     private javax.swing.JFrame register;
     private javax.swing.JTextField unlog;
