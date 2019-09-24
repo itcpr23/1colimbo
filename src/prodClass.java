@@ -15,37 +15,37 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author LENOVO
+ * @author for sale
  */
-public class loginAccount {
-    String name;
-    public int loginAcc(String uname, String pass){
-        int x= 0;
-        
+public class prodClass {
+    
+    public int addprod(String pname, int quant, Object price){
+        int x =0;
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/colimboreg?","root","");
-            String sql = "select * from register where username=? and password=?;";
+            String sql = "insert into product values(null,?,?,?);";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, uname);
-            pstmt.setString(2, pass);
+            pstmt.setString(1, pname);
+            pstmt.setInt(2, quant);
+            pstmt.setObject(3, price);
             
-            ResultSet rs = pstmt.executeQuery();
-            if(rs.next()){
-                x=1;
-                name = rs.getString("firstname");
-            }else{
-                x=0;
-            }
+            x = pstmt.executeUpdate();
+            
             
             
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(loginAccount.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(prodClass.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(loginAccount.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(prodClass.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
         return x;
     }
+    
+    
+    
+    
 }

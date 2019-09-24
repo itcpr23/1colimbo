@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
  */
 public class loginAcc extends javax.swing.JFrame {
 
+
+
     /**
      * Creates new form loginAcc
      */
@@ -22,7 +24,7 @@ public class loginAcc extends javax.swing.JFrame {
     }
     String unamelog_in;
     registerAccount ra = new registerAccount();
-            
+       
     public void clearText(){
         fnreg.setText("");
         lnreg.setText("");
@@ -30,7 +32,6 @@ public class loginAcc extends javax.swing.JFrame {
         pwreg.setText("");
         cpwreg.setText("");
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,6 +91,12 @@ public class loginAcc extends javax.swing.JFrame {
         jLabel8.setText("PASSWORD :");
 
         jLabel9.setText("CONFIRM PASSWORD :");
+
+        cpwreg.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cpwregKeyReleased(evt);
+            }
+        });
 
         jButton3.setText("REGISTER");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +190,11 @@ public class loginAcc extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton2.setText("X");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -306,19 +318,25 @@ System.exit(0);        // TODO add your handling code here:
 unamelog_in= unlog.getText();
 String password = new String(pass.getPassword());
 
+
+
 loginAccount logi = new loginAccount();
+String name="";
 int x = logi.loginAcc(unamelog_in, password);
 if(x==0){
      JOptionPane.showMessageDialog(rootPane,"Invalid Username and Password!","ERROR",JOptionPane.ERROR_MESSAGE);
      pass.setText("");
      pass.requestFocus();
 }else{
+    
+    this.setVisible(false);
+   
     main m = new main();
     m.setVisible(true);
     
     m.setLocationRelativeTo(null);
     
-    this.setVisible(false);
+    
 }
 
 
@@ -380,6 +398,10 @@ register.setLocationRelativeTo(null);
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passActionPerformed
+
+    private void cpwregKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpwregKeyReleased
+            // TODO add your handling code here:
+    }//GEN-LAST:event_cpwregKeyReleased
 
     /**
      * @param args the command line arguments

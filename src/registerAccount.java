@@ -24,7 +24,7 @@ public class registerAccount {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/colimboreg?", "root","");
-            String sql = "insert into register values(?,?,?,md5(?));";
+            String sql = "insert into register values(?,?,?,?);";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, fname);
              pstmt.setString(2, lname);
