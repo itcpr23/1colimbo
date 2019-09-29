@@ -30,9 +30,24 @@ public class main extends javax.swing.JFrame {
         initComponents();
         showList();
     
-
-   
     }
+    public void deleteProd(int a){
+       
+            try{
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/colimboreg?","root","");
+                String sql = "delete from product where prod_id=?;";
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.setInt(1, a);
+                pstmt.executeUpdate();
+            } catch (ClassNotFoundException ex) {
+             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        
+        
+}
     
     public void showList(){
      
@@ -89,6 +104,7 @@ public class main extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         addProduct.setMinimumSize(new java.awt.Dimension(425, 215));
         addProduct.setUndecorated(true);
@@ -328,6 +344,13 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("DELETE PRODUCT");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -335,6 +358,8 @@ public class main extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -343,10 +368,12 @@ public class main extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -362,7 +389,7 @@ public class main extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -422,6 +449,36 @@ if(d==0){System.exit(d);}else{}
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int selRow = prodtable.getSelectedRow();
+    
+if(selRow==-1){
+    JOptionPane.showMessageDialog(prodtable, "Please Select a Product From Table to Remove.","Message",JOptionPane.WARNING_MESSAGE);
+}
+else{
+    String pname = prodtable.getValueAt(selRow,1).toString();
+    int opt = JOptionPane.showConfirmDialog(prodtable, "ARE YOU SURE YOU WANT TO DELETE \n"+pname,"WARNING",JOptionPane.YES_NO_OPTION);
+    if(opt== JOptionPane.YES_OPTION){
+     int a = JOptionPane.showConfirmDialog(prodtable,"THIS WILL DELETE \n"+pname,"CONFIRMATION",JOptionPane.ERROR_MESSAGE,JOptionPane.OK_CANCEL_OPTION);
+     if(a == JOptionPane.OK_OPTION){
+            int ii = Integer.parseInt(prodtable.getValueAt(selRow, 0).toString());
+            deleteProd(ii);
+            JOptionPane.showMessageDialog(prodtable,"PRODUCT "+pname+" DELETED");
+     }else{
+         
+     }
+    }
+    
+    else{
+        
+    }
+}
+showList();
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -463,6 +520,7 @@ if(d==0){System.exit(d);}else{}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame addProduct;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
