@@ -31,6 +31,34 @@ public class main extends javax.swing.JFrame {
         showList();
     
     }
+    public void searchProd(){
+        
+       String name = searchButton.getText();
+
+try{
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/colimboreg?","root","");
+    String sql = "select * from product where productname like ?;";
+    PreparedStatement pstmt = con.prepareStatement(sql);
+    pstmt.setString(1, "%"+name+"%");
+    
+    ResultSet rs = pstmt.executeQuery();
+    DefaultTableModel model = (DefaultTableModel) prodtable.getModel();
+    model.setRowCount(0);
+    
+    if(!rs.isBeforeFirst()){
+        model.addRow(new Object [] {"NO RESULT"});
+    }else{
+        while(rs.next()){
+        model.addRow(new Object[]{rs.getInt("prod_id"),rs.getString("productname"),rs.getInt("quantity"),rs.getInt("price")});
+    }
+    }
+}       catch (ClassNotFoundException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void deleteProd(int a){
        
             try{
@@ -443,12 +471,22 @@ public class main extends javax.swing.JFrame {
 
         searchButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         searchButton.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        searchButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchButtonKeyReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("PRODUCT NAME :");
 
         jButton7.setText("SEARCH");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -595,7 +633,7 @@ String c = pr.getText();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-addProduct.setVisible(true);
+addProduct. setVisible(true);
 addProduct.setLocationRelativeTo(null);
 this.setVisible(false);
 
@@ -721,6 +759,16 @@ main m = new main();
 m.setVisible(true);
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void searchButtonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchButtonKeyReleased
+        
+        searchProd();        // TODO add your handling code here:
+    }//GEN-LAST:event_searchButtonKeyReleased
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
+        searchProd();       // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
